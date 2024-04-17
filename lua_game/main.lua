@@ -5,6 +5,12 @@ local scaleX, scaleY
 local currentPage = 1
 local totalPages = 4
 
+local pageContent = {
+    "A Knights voyage",
+    "Page 2 content",
+    "Page 3 content",
+}
+
 
 function love.load()
     -- Load font to 32
@@ -17,14 +23,11 @@ function love.load()
     end
 
     -- Create button instance
-    button = Button.new(300, 400, 200, 75, function() 
-      if currentPage == 1 then
+    button = Button.new(300, 400, 200, 75, function()
         currentPage = currentPage + 1
-      elseif currentPage == 2 then
-        currentPage = currentPage + 2
-      elseif currentPage == 3 then
-        love.event.quit()  
-      end 
+        if currentPage > totalPages then
+            currentPage = totalPages
+        end
     end)
 end 
 
@@ -46,18 +49,8 @@ function love.draw()
     love.graphics.draw(background, 0, 0, 0, scaleX, scaleY)
 
     -- Draw text
-    -- love.graphics.print("Page " .. currentPage .. " of " .. totalPages, 175, 100)
-
-   
-
-    -- Draw additional content for the current page
-    -- Draw text
-    if currentPage == 1 then
-        love.graphics.print("A Knights Voyage", 145, 100)
-    elseif currentPage == 2 then
-        love.graphics.print("Page 2 content", 100, 200)
-    elseif currentPage == 3 then
-        love.graphics.print("Page 3 content", 100, 200)
+    if pageContent[currentPage] then
+        love.graphics.print(pageContent[currentPage], 100, 100)
     end
 
      -- Draw button
