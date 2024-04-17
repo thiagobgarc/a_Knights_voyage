@@ -4,6 +4,8 @@ local button
 local scaleX, scaleY
 local currentPage = 1
 local totalPages = 3
+local smoothTransition = 0
+local speedTransition = 2
 
 local pageContent = {
     "A Knights voyage",
@@ -25,6 +27,7 @@ function love.load()
     -- Create button instance
     button = Button.new(300, 400, 200, 75, function()
         currentPage = (currentPage % totalPages) + 1
+        smoothTransition = 0
     end)
 end 
 
@@ -33,6 +36,11 @@ function love.update(dt)
     local screenWidth, screenHeight = love.graphics.getDimensions()
     scaleX = screenWidth / background:getWidth()
     scaleY = screenHeight / background:getHeight()
+
+    -- Update transition effect
+    if smoothTransition < 1 then 
+        smoothTransition = smoothTransition - speedTransition * dt
+    end
 
     -- Update button
     if button then
@@ -47,7 +55,7 @@ function love.draw()
 
     -- Draw text
     if pageContent[currentPage] then
-        love.graphics.print(pageContent[currentPage], 100, 200)
+        love.graphics.print(pageContent[currentPage], 150, 100)
     end
 
      -- Draw button
