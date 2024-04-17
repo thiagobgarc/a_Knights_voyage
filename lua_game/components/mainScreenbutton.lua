@@ -10,6 +10,9 @@ function Button.new(x, y, width, height, onClick)
         height = height,
         onClick = onClick
     }
+    
+    setmetatable(self, { __index = Button })
+    
     return self
 end
 
@@ -28,10 +31,11 @@ function Button:update(dt)
 end
 
 function Button:draw()
-    love.graphics.setColor(0.5, 0.5, 0.5)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.printf("Click Me", self.x, self.y + self.height / 3, self.width, "center")
+    local cornerRadius = 10
+    love.graphics.setColor(150 / 255, 75 / 255, 0)
+    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, cornerRadius, cornerRadius)
+    love.graphics.setColor(.9, .9, .9)
+    love.graphics.printf("Play", self.x, self.y + self.height / 23, self.width, "center")
 end
 
 return Button

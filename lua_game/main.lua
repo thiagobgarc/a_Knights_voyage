@@ -9,9 +9,12 @@ function love.load()
     
     -- Load image
     background = love.graphics.newImage("assets/background.jpg")
+    if not background then
+        error("Failed to load background image")
+    end
 
     -- Create button instance
-    button = Button.new(100, 100, 200, 50, function() love.event.quit() end)
+    button = Button.new(300, 400, 200, 75, function() love.event.quit() end)
 end 
 
 function love.update(dt)
@@ -21,10 +24,13 @@ function love.update(dt)
     scaleY = screenHeight / background:getHeight()
 
     -- Update button
-    button:update(dt)
+    if button then
+        button:update(dt)
+    end
 end 
 
 function love.draw()
+   
     -- Draw background
     love.graphics.draw(background, 0, 0, 0, scaleX, scaleY)
 
@@ -33,4 +39,6 @@ function love.draw()
 
     -- Draw button
     button:draw()
+
+    
 end
