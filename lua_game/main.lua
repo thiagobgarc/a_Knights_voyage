@@ -3,7 +3,7 @@ local Button = require("components.mainScreenbutton")
 local button
 local scaleX, scaleY
 local currentPage = 1
-local totalPages = 4
+local totalPages = 3
 
 local pageContent = {
     "A Knights voyage",
@@ -24,10 +24,7 @@ function love.load()
 
     -- Create button instance
     button = Button.new(300, 400, 200, 75, function()
-        currentPage = currentPage + 1
-        if currentPage > totalPages then
-            currentPage = totalPages
-        end
+        currentPage = (currentPage % totalPages) + 1
     end)
 end 
 
@@ -50,7 +47,7 @@ function love.draw()
 
     -- Draw text
     if pageContent[currentPage] then
-        love.graphics.print(pageContent[currentPage], 100, 100)
+        love.graphics.print(pageContent[currentPage], 100, 200)
     end
 
      -- Draw button
