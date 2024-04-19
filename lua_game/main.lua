@@ -67,6 +67,9 @@ function love.draw()
 
     -- Draw dynamic background
     DynamicBackground.draw()
+    love.graphics.scale(scaleX, scaleY) -- Apply scaling
+    DynamicBackground.draw()
+    love.graphics.scale(1/scaleX, 1/scaleY) -- Undo scaling
 
     -- Draw title and text
     if pageContent[currentPage] then
